@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Example API
-  description: Title
+  title: ApplicationA API
+  description: Application A
   version: 1.0.0
   contact:
     name: Morten Slaatten Berg
