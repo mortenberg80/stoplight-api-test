@@ -1,0 +1,1 @@
+# stoplight-api-test
