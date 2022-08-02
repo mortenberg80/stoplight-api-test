@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: Example API
+  description: Title
+  version: 1.0.0
+  contact:
+    name: Morten Slaatten Berg
+servers:
+  - url: 'http://localhost:8080'
+    description: Test
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':
+          description: A JSON array of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsersResponse'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: foo
+          description: bar
+    post:
+      summary: Create a new user
+      description: foo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUserRequest'
+      responses:
+        '201':
+          description: User is successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  '/users/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get user by id
+      responses:
+        '200':
+          description: Successfully retrieved user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - person_id
+        - first_name
+        - last_name
+      properties:
+        id:
+          type: string
+        person_id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    GetUsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PostUserRequest:
+      type: object
+      required:
+        - person_id
+        - first_name
+        - last_name
+      properties:
+        person_id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
