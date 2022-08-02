@@ -1,0 +1,1806 @@
+{
+  "openapi": "3.0.1",
+  "x-stoplight": {
+    "id": "2l7yp32pj5efq"
+  },
+  "info": {
+    "title": "RGValidationv4",
+    "description": "Service for validating money withdrawal based on current consumption and limits regarding to current Responsible Gaming rules.",
+    "termsOfService": "/terms",
+    "contact": {
+      "name": "Team Responsible Gamers"
+    },
+    "version": "4.40.5"
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "paths": {
+    "/api/tree": {
+      "get": {
+        "operationId": "tree",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionedTreeRgDomain"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "tags": [
+          "XML body post"
+        ],
+        "summary": "RG services:  prize, withdraw or reverse withdraw ",
+        "operationId": "post",
+        "parameters": [
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "object"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/selftest": {
+      "get": {
+        "operationId": "selfTest",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "selfTestPost",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/deposit/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG deposit from personId",
+        "operationId": "processDepositPersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/ntgameid/{ntGameId}/deposit/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG deposit from personId",
+        "operationId": "processDepositPersonIdNtGameIdv2",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ntGameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json;qs=0.5": {},
+              "application/vnd.norsktipping.rg-v1.0+json;qs=0.5": {}
+            }
+          }
+        }
+      }
+    },
+    "/playercard/{playerCard}/{game}/deposit/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG deposit from playerCard",
+        "operationId": "processDepositPlayercard",
+        "parameters": [
+          {
+            "name": "playerCard",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/refund/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG refund from personId",
+        "operationId": "processRefundPersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/ntgameid/{ntGameId}/refund/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG deposit from personId",
+        "operationId": "processRefundPersonIdNtGameIdv2",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ntGameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json;qs=0.5": {},
+              "application/vnd.norsktipping.rg-v1.0+json;qs=0.5": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/reversewithdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG reverse withdraw from person id",
+        "operationId": "processReverseWithdrawPersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/ntgameid/{ntGameId}/reversewithdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG reverse withdraw from person id",
+        "operationId": "processReverseWithdrawPersonIdNtGameIdv2",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ntGameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json;qs=0.5": {},
+              "application/vnd.norsktipping.rg-v1.0+json;qs=0.5": {}
+            }
+          }
+        }
+      }
+    },
+    "/playercard/{playerCard}/{game}/reversewithdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Deposit/Reverse/Refund"
+        ],
+        "summary": "RG reverse withdraw from player card",
+        "operationId": "processReverseWithdrawPlayercard",
+        "parameters": [
+          {
+            "name": "playerCard",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/validate": {
+      "post": {
+        "tags": [
+          "Validate"
+        ],
+        "summary": "RG Validate from person id",
+        "operationId": "processValidatePersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/validate/prerequisites": {
+      "post": {
+        "tags": [
+          "Validate"
+        ],
+        "summary": "RG Validate prerequisites from person id",
+        "operationId": "processValidatePrerequisitesPersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateWithdrawalRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateWithdrawalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/withdrawal/validate": {
+      "post": {
+        "tags": [
+          "Validate"
+        ],
+        "summary": "RG Validate from person id with ntGameId",
+        "operationId": "processValidateWithdrawal",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateWithdrawalRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateWithdrawalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/prize/{amount}": {
+      "post": {
+        "tags": [
+          "Prize"
+        ],
+        "summary": "RG prizeamount from person id",
+        "operationId": "processPrizePersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/ntgameid/{ntGameId}/prize/{amount}": {
+      "post": {
+        "tags": [
+          "Prize"
+        ],
+        "summary": "RG prizeamount from person id",
+        "operationId": "processPrizePersonIdNTGameIdv2",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ntGameId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json;qs=0.5": {},
+              "application/vnd.norsktipping.rg-v1.0+json;qs=0.5": {}
+            }
+          }
+        }
+      }
+    },
+    "/playercard/{playerCard}/{game}/prize/{amount}": {
+      "post": {
+        "tags": [
+          "Prize"
+        ],
+        "summary": "RG prizeamount from player card",
+        "operationId": "processPrizePlayercard",
+        "parameters": [
+          {
+            "name": "playerCard",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/time/{seconds}": {
+      "post": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "RG Time from person id",
+        "operationId": "processTimePersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seconds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/playercard/{playerCard}/{game}/time/{seconds}": {
+      "post": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "RG Time from player card",
+        "operationId": "processTimePlayercard",
+        "parameters": [
+          {
+            "name": "playerCard",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seconds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "*/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "Collection of transactions"
+        ],
+        "operationId": "processTransactions",
+        "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json": {},
+              "application/vnd.norsktipping.rg-v1.0+json": {},
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/{game}/withdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Withdraw"
+        ],
+        "summary": "RG withdraw from person id",
+        "operationId": "processWithdrawPersonId",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "description": "instaspill or gameid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/personid/{personId}/ntgameid/{ntGameId}/withdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Withdraw"
+        ],
+        "summary": "RG withdraw from person id with ntgameId",
+        "operationId": "processWithdrawPersonIdv2",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ntGameId",
+            "in": "path",
+            "description": "instaspill or gameid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.norsktipping.rg-v1+json;qs=0.5": {},
+              "application/vnd.norsktipping.rg-v1.0+json;qs=0.5": {}
+            }
+          }
+        }
+      }
+    },
+    "/playercard/{playerCard}/{game}/withdraw/{amount}": {
+      "post": {
+        "tags": [
+          "Withdraw"
+        ],
+        "summary": "RG withdraw from player card",
+        "operationId": "processWithdrawPlayercard",
+        "parameters": [
+          {
+            "name": "playerCard",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game",
+            "in": "path",
+            "description": "instaspill or gameid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionid",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysdate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "description": "1=terminal, 2=web, 7=mobil",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {},
+              "application/json": {},
+              "application/problem+json": {}
+            }
+          }
+        }
+      }
+    },
+    "/application.wadl/{path}": {
+      "get": {
+        "operationId": "getExternalGrammar",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/application.wadl": {
+      "get": {
+        "operationId": "getWadl",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/vnd.sun.wadl+xml": {},
+              "application/xml": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Default": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MigrationStrategy"
+          }
+        ]
+      },
+      "Fail": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MigrationStrategy"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "MigrationStrategy": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        },
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "Move": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MigrationStrategy"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "nodeId": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "NodeRef": {
+        "type": "object",
+        "properties": {
+          "treeVersion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nodeId": {
+            "type": "string"
+          }
+        }
+      },
+      "NodeRgDomain": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "$ref": "#/components/schemas/NodeRef"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RgDomain"
+          },
+          "migrationStrategy": {
+            "$ref": "#/components/schemas/MigrationStrategy"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NodeRgDomain"
+            }
+          }
+        }
+      },
+      "RgDomain": {
+        "type": "object",
+        "properties": {
+          "mandatoryMoneyLimit": {
+            "type": "boolean"
+          },
+          "mandatoryTimeLimit": {
+            "type": "boolean"
+          },
+          "walletBasedGame": {
+            "type": "boolean"
+          },
+          "limitName": {
+            "type": "string"
+          },
+          "exclusionCategory": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "enforcedBettingLimit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "limitConfirmationTimeDays": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "relaxedMandatory": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TreeRgDomain": {
+        "type": "object",
+        "properties": {
+          "treeVersion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rootNode": {
+            "$ref": "#/components/schemas/NodeRgDomain"
+          },
+          "replacedBy": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "VersionedTreeRgDomain": {
+        "type": "object",
+        "properties": {
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TreeRgDomain"
+            }
+          }
+        }
+      },
+      "ValidateRequest": {
+        "required": [
+          "validateList"
+        ],
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "integer",
+            "description": "Channel id, 1=terminal, 2=desktop, 7=mobile and omniweb",
+            "format": "int32",
+            "example": 2
+          },
+          "validateList": {
+            "type": "array",
+            "description": "List over game and amount",
+            "items": {
+              "$ref": "#/components/schemas/ValidateType"
+            }
+          }
+        },
+        "description": "Validate request object"
+      },
+      "ValidateType": {
+        "required": [
+          "amount",
+          "game"
+        ],
+        "type": "object",
+        "properties": {
+          "game": {
+            "type": "string",
+            "description": "Game value , instaspill, multix, belago or gameId",
+            "example": "1"
+          },
+          "amount": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "The amount",
+            "example": 100
+          }
+        },
+        "description": "Game data, GameId and amount"
+      },
+      "NtGameAmount": {
+        "required": [
+          "amount",
+          "ntGameId"
+        ],
+        "type": "object",
+        "properties": {
+          "ntGameId": {
+            "type": "string",
+            "description": "NT Game identifier",
+            "example": "1234"
+          },
+          "amount": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "The amount",
+            "example": 100
+          }
+        },
+        "description": "Game data, GameId and amount"
+      },
+      "ValidateWithdrawalRequest": {
+        "required": [
+          "ntGameAmounts"
+        ],
+        "type": "object",
+        "properties": {
+          "channel": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Channel id, 1=terminal, 2=desktop, 7=mobile and omniweb",
+            "format": "int32",
+            "example": 2
+          },
+          "ntGameAmounts": {
+            "type": "array",
+            "description": "List over game and amount",
+            "items": {
+              "$ref": "#/components/schemas/NtGameAmount"
+            }
+          }
+        },
+        "description": "Validate withdrawal request object"
+      },
+      "TransactionsRequest": {
+        "required": [
+          "elements",
+          "personId",
+          "transactionId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of transaction",
+            "enum": [
+              "WITHDRAW",
+              "REVERSE_WITHDRAW",
+              "DEPOSIT",
+              "REFUND",
+              "PRIZE"
+            ]
+          },
+          "channel": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Channel id, 1=terminal, 2=desktop, 7=mobile and omniweb",
+            "format": "int32",
+            "example": 2
+          },
+          "personId": {
+            "type": "string"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "The transactionId"
+          },
+          "elements": {
+            "type": "array",
+            "description": "List over game and amount",
+            "items": {
+              "$ref": "#/components/schemas/NtGameAmount"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "NTToken": {
+        "type": "http",
+        "description": "To access secure endpoints, a valid NTToken (JWT) must be present in the `Authorization` header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
